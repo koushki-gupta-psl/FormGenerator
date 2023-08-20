@@ -9,8 +9,6 @@ export const CreatedForm = () => {
     const [data, setData] = useState({})
     useEffect(() => {
         setData(JSON.parse(localStorage.getItem('data')))
-
-
     }, [])
     return (
         <form>
@@ -24,23 +22,23 @@ export const CreatedForm = () => {
             ))}
             {data.TextArea && data.TextArea.map((d) => (
                
-                    <TextArea label={d.label} name={d.name} ></TextArea>
+                    <TextArea label={d.label} name={d.name} Required={d.required} Rows={d.rows} Maxlength={d.maxlength}></TextArea>
               
             ))}
             {data.DropDown && data.DropDown.map((d) => (
                
-                    <Dropdown label={d.label} name={d.name} options={d.Options}></Dropdown>
+                    <Dropdown label={d.label} name={d.name} options={d.Options} Required={d.required}></Dropdown>
                
             ))}
             {data.RadioButton && data.RadioButton.map((d) => (
                 
-                    <RadioButton label={d.label} name={d.name} options={d.Options}></RadioButton>
+                    <RadioButton label={d.label} name={d.name} options={d.Options} Required={d.required}></RadioButton>
                
             ))}
             {data.CheckBox && data.CheckBox.map((d) => (
                 
                     <Checkbox label={d.label} name={d.name} options={d.Options}></Checkbox>
-                
+    
             ))}
             <button type='submit'>Submit</button>
 </table>

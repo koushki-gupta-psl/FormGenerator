@@ -1,0 +1,9 @@
+.deleteButton{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.componentDiv{
+    margin:2rem;
+}

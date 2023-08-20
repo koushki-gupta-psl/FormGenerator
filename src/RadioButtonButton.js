@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { RadioButton } from './RadioButton/RadioButton';
+import './Css/components.css'
 
 export const RadioButtonButton = () => {
 
@@ -8,70 +9,50 @@ export const RadioButtonButton = () => {
   const [optionValue, setOptionValue] = useState('');
   const [options, setOptions] = useState([])
   const [data, setData] = useState({})
-  // useEffect(()=>{
 
-  // },[])
+  // handleChange()=>Handle The data and store data in the state use to create RadioButton
   const handleChange = (event) => {
-
     const name = event.target.name;
     const value = event.target.value;
     setInputs(values => ({ ...values, [name]: value }))
-
   }
+  // Store options in the state for particular radio field
   const handleOptions = (event) => {
-
     const value = event.target.value;
     setOptionValue(value);
-
-
-
   }
+   // handlSubmit()=>Handle Submit to store Radiobutton configuration in Json format in object created in LocalStorage
   const handleSubmit = (event) => {
-
     event.preventDefault();
-
-
     const jsondata = localStorage.getItem('data')
-
     const dataobj = JSON.parse(jsondata);
-
     dataobj.RadioButton.push(inputs);
-
     localStorage.setItem('data', JSON.stringify(dataobj))
     setFieldopen(false)
     setData(JSON.parse(localStorage.getItem('data')))
-
   }
+
+    //add options in options array
   const handleAdd = (event) => {
     setOptionValue('')
     event.preventDefault();
     options.push(optionValue);
     setInputs(values => ({ ...values, Options: options }))
-
-
   }
-
   const handleClick = () => {
     setFieldopen(!fieldopen)
     setInputs({});
     setOptions([])
   }
+
+  // deleteField()=>Delete a particular fieldComponent already Created
   const deleteField = (value) => {
-
     const jsondata = localStorage.getItem('data')
-
-
     const dataobj = JSON.parse(jsondata);
     const indexOfObject = dataobj.RadioButton.findIndex(object => {
       return object.label === value
-
-
-
     });
-    console.log(indexOfObject)
     dataobj.RadioButton.splice(indexOfObject, 1);
-
-    console.log(dataobj)
     localStorage.setItem('data', JSON.stringify(dataobj))
     setData(JSON.parse(localStorage.getItem('data')))
   }
@@ -106,12 +87,12 @@ export const RadioButtonButton = () => {
         </fieldset>
       </form> : null}
       {data.RadioButton && data.RadioButton.map((d) => (
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex' }} className='componentDiv'>
         <table>
-          <RadioButton label={d.label} name={d.name} options={d.Options}></RadioButton>
+          <RadioButton label={d.label} name={d.name} options={d.Options} Required={d.required}></RadioButton>
           </table>
           
-          <div><button onClick={() => deleteField(d.label)}>Delete</button></div>
+          <div className='deleteButton'><button onClick={() => deleteField(d.label)}>Delete</button></div>
         </div>
       ))}
 
